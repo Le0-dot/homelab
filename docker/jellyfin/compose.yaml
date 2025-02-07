@@ -1,0 +1,19 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    volumes:
+      - config:/config
+      - cache:/cache
+      - ${JELLYFIN_MEDIA_DIR:?}:/media
+    environment:
+      - PUID=1000
+      - PGID=1000
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - 8096:8096
+volumes:
+  config:
+  cache:
