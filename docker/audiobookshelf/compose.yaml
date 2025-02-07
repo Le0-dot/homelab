@@ -1,0 +1,14 @@
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    restart: unless-stopped
+    volumes:
+      - ${AUDIOBOOKSHELF_DATA_DIR:?}:/audiobooks
+      - config:/config
+      - metadata:/metadata
+    ports:
+      - 13378:80
+volumes:
+  config:
+  metadata:
