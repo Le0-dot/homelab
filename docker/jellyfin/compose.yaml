@@ -6,7 +6,7 @@ services:
     volumes:
       - config:/config
       - cache:/cache
-      - ${JELLYFIN_MEDIA_DIR:?}:/media
+      - ${MEDIA_DIR:?}:/media
     environment:
       - PUID=1000
       - PGID=1000
