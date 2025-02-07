@@ -1,0 +1,21 @@
+services:
+  readarr:
+    image: ghcr.io/hotio/readarr
+    container_name: readarr
+    restart: unless-stopped
+    networks:
+      - torrents
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${TORRENTS_DOWNLOAD_DIR:?}:/downloads
+      - ${MEDIA_DIR:?}:/data
+      - config:/config
+    ports:
+      - 8787:8787
+volumes:
+  config:
+networks:
+  torrents:
+    external: true
