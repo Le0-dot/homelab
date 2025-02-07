@@ -1,0 +1,23 @@
+services:
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless
+    restart: unless-stopped
+    ports:
+      - 8010:8000
+    volumes:
+      - data:/usr/src/paperless/data
+      - media:/usr/src/paperless/media
+    environment:
+      - PAPERLESS_REDIS=redis://broker:6379
+    depends_on:
+      - broker
+  broker:
+    image: redis:7
+    restart: unless-stopped
+    volumes:
+      - redis:/data
+volumes:
+  data:
+  media:
+  redis:
