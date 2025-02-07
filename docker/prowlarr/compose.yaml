@@ -1,0 +1,19 @@
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    networks:
+      - torrents
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - config:/config
+    ports:
+      - 9696:9696
+volumes:
+  config:
+networks:
+  torrents:
+    external: true
