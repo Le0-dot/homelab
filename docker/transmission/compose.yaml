@@ -1,0 +1,22 @@
+services:
+  transmission:
+    image: linuxserver/transmission:latest
+    container_name: transmission
+    restart: unless-stopped
+    networks:
+      - torrents
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - config:/config
+      - ${TORRENTS_DOWNLOAD_DIR:?}:/downloads
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+volumes:
+  config:
+networks:
+  torrents:
+    external: true
