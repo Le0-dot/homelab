@@ -1,0 +1,21 @@
+services:
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    networks:
+      - torrents
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${TORRENTS_DOWNLOAD_DIR:?}:/downloads
+      - ${MEDIA_DIR:?}:/data
+      - config:/config
+    ports:
+      - 7878:7878
+volumes:
+  config:
+networks:
+  torrents:
+    external: true
