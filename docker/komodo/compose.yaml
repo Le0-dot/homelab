@@ -20,8 +20,8 @@ services:
     depends_on:
       - mongo
     networks:
-      - komodo_default
-      - komodo
+      - default
+      - periphery
     ports:
       - 9120:9120
     environment:
@@ -56,3 +56,6 @@ volumes:
   mongo-data:
   mongo-config:
   repo-cache:
+networks:
+  default:
+  periphery:

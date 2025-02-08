@@ -4,7 +4,7 @@ services:
     container_name: komodo-periphery
     restart: unless-stopped
     networks:
-      - komodo
+      - komodo_periphery
     labels:
       komodo.skip:
     volumes:
@@ -22,5 +22,5 @@ volumes:
   repos:
   stacks:
 networks:
-  komodo:
+  komodo_periphery:
     external: true
