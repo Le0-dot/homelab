@@ -1,0 +1,26 @@
+services:
+  komodo-periphery:
+    image: ghcr.io/mbecker20/periphery:latest
+    container_name: komodo-periphery
+    restart: unless-stopped
+    networks:
+      - komodo
+    labels:
+      komodo.skip:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc:/proc
+      - ssl-certs:/etc/komodo/ssl
+      - repos:/etc/komodo/repos
+      - stacks:/etc/komodo/stacks
+    environment:
+      - PERIPHERY_PASSKEYS=${KOMODO_PASSKEY:?}
+      - PERIPHERY_SSL_ENABLED=true
+      - PERIPHERY_INCLUDE_DISK_MOUNTS=/etc/hostname
+volumes:
+  ssl-certs:
+  repos:
+  stacks:
+networks:
+  komodo:
+    external: true
