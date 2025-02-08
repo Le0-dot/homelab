@@ -1,0 +1,112 @@
+---
+- name: Install and run komodo core and periphery in docker container
+  hosts: all
+
+  vars_prompt:
+    - name: komodo_url
+      prompt: Komodo core url
+      private: false
+
+    - name: sync_dir
+      prompt: Komodo sync directory
+      private: false
+
+  tasks:
+    - name: Set paths for docker compose files
+      ansible.builtin.set_fact:
+        core_compose: "../../docker/komodo/compose.yaml"
+        periphery_compose: "../../docker/komodo-periphery/compose.yaml"
+
+    - name: Generate secrets
+      ansible.builtin.set_fact:
+        komodo_secret: "{{ lookup('community.general.random_string', length=20, base64=true) }}"
+        webhook_secret: "{{ lookup('community.general.random_string', length=20, base64=true) }}"
+        jwt_secret: "{{ lookup('community.general.random_string', length=20, base64=true) }}"
+        mongo_password: "{{ lookup('community.general.random_string', length=20, base64=true) }}"
+
+    - name: Generate .env files
+      ansible.builtin.set_fact:
+        core_env: |-
+          MONGO_USERNAME=admin
+          MONGO_PASSWORD={{ mongo_password }}
+          KOMODO_URL={{ komodo_url }}
+          KOMODO_PASSKEY={{ komodo_secret }}
+          KOMODO_WEBHOOK_SECRET={{ webhook_secret }}
+          KOMODO_JWT_SECRET={{ jwt_secret }}
+          KOMODO_SYNC_DIR={{ sync_dir }}
+        periphery_env: "KOMODO_PASSKEY={{ komodo_secret }}"
+
+    - name: Deploy komodo core
+      block:
+        - ansible.builtin.tempfile:
+            state: directory
+            prefix: ansible.komodo-
+          register: komodo_core_dir
+
+        - ansible.builtin.copy:
+            src: "{{ core_compose }}"
+            dest: "{{ komodo_core_dir.path }}/compose.yaml"
+
+        - ansible.builtin.copy:
+            dest: "{{ komodo_core_dir.path }}/.env"
+            content: "{{ core_env }}"
+
+        - community.docker.docker_compose_v2:
+            project_name: komodo
+            project_src: "{{ komodo_core_dir.path }}"
+
+    - name: Deploy komodo periphery
+      block:
+        - ansible.builtin.tempfile:
+            state: directory
+            prefix: ansible.periphery-
+          register: komodo_periphery_dir
+
+        - ansible.builtin.copy:
+            src: "{{ periphery_compose }}"
+            dest: "{{ komodo_periphery_dir.path }}/compose.yaml"
+
+        - ansible.builtin.copy:
+            dest: "{{ komodo_periphery_dir.path }}/.env"
+            content: "{{ periphery_env }}"
+
+        - community.docker.docker_compose_v2:
+            project_name: komodo-periphery
+            project_src: "{{ komodo_periphery_dir.path }}"
+
+    - name: Create toml config for komodo
+      block:
+        - ansible.builtin.file:
+            path: "{{ sync_dir }}/komodo"
+            state: directory
+
+        - ansible.builtin.copy:
+            dest: "{{ sync_dir }}/komodo/config.toml"
+            content: |
+              [[server]]
+              name = "server"
+              [server.config]
+              address = "https://komodo-periphery:8120"
+              enabled = true
+
+              [[stack]]
+              name = "komodo"
+              [stack.config]
+              server = "server"
+              run_directory = "docker/komodo"
+              git_account = "Le0-dot"
+              repo = "Le0-dot/homelab"
+              environment = """
+              {{ core_env }}
+              """
+
+              [[stack]]
+              name = "komodo-periphery"
+              [stack.config]
+              server = "server"
+              run_directory = "docker/komodo-periphery"
+              git_account = "Le0-dot"
+              repo = "Le0-dot/homelab"
+              environment = """
+              {{ periphery_env }}
+              """
