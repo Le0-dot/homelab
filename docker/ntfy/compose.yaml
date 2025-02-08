@@ -11,7 +11,7 @@ services:
     ports:
       - 8090:80
     environment:
-      - NTFY_BASE_URL=http://server:8090
+      - NTFY_BASE_URL=http://${NTFY_HOST:?}:8090
       - NTFY_CACHE_FILE=/var/lib/ntfy/cache.db
       - NTFY_AUTH_FILE=/var/lib/ntfy/auth.db
       - NTFY_ATTACHMENT_CACHE_DIR=/var/lib/ntfy/attachments
