@@ -10,6 +10,8 @@ services:
       - 11434:11434
     volumes:
       - data:/root/.ollama
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   data:
 networks:

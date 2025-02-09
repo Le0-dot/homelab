@@ -9,5 +9,7 @@ services:
       - ${TSDPROXY_CONFIG_DIR:?}:/config
     ports:
       - 9090:8080
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   data:

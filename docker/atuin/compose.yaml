@@ -11,6 +11,8 @@ services:
       ATUIN_OPEN_REGISTRATION: "true"
       ATUIN_DB_URI: postgres://${ATUIN_DB_USERNAME:?}:${ATUIN_DB_PASSWORD:?}@db/${ATUIN_DB_NAME:?}
       RUST_LOG: info,atuin_server=debug
+    labels:
+      tsdproxy.enable: "true"
     depends_on:
       - db
   db:

@@ -17,6 +17,8 @@ services:
       - NTFY_ATTACHMENT_CACHE_DIR=/var/lib/ntfy/attachments
       - NTFY_ENABLE_LOGIN=true
       - NTFY_AUTH_DEFAULT_ACCESS=write-only
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   cache:
   auth:

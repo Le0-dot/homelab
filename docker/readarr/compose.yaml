@@ -14,6 +14,8 @@ services:
       - config:/config
     ports:
       - 8787:8787
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   config:
 networks:

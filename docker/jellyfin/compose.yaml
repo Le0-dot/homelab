@@ -14,6 +14,8 @@ services:
       - /dev/dri:/dev/dri
     ports:
       - 8096:8096
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   config:
   cache:

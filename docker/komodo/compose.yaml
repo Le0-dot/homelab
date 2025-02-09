@@ -17,6 +17,7 @@ services:
     restart: unless-stopped
     labels:
       komodo.skip:
+      tsdproxy.enable: "true"
     depends_on:
       - mongo
     networks:

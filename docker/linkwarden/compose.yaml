@@ -24,6 +24,8 @@ services:
 
       - NEXT_PUBLIC_OLLAMA_ENDPOINT_URL=${OLLAMA_URL:?}
       - OLLAMA_MODEL=${OLLAMA_MODEL:?}
+    labels:
+      tsdproxy.enable: "true"
     depends_on:
       - postgres
   postgres:

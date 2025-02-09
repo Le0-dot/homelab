@@ -9,6 +9,8 @@ services:
       - metadata:/metadata
     ports:
       - 13378:80
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   config:
   metadata:

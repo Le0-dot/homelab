@@ -12,6 +12,8 @@ services:
       - config:/config
     ports:
       - 9696:9696
+    labels:
+      tsdproxy.enable: "true"
 volumes:
   config:
 networks:

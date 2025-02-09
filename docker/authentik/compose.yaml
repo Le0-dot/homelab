@@ -20,6 +20,9 @@ services:
     depends_on:
       - postgresql
       - redis
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.container_port: 9000
   worker:
     image: ghcr.io/goauthentik/server:2024.12.0
     restart: unless-stopped

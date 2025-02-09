@@ -12,6 +12,8 @@ services:
       - PAPERLESS_REDIS=redis://broker:6379
     depends_on:
       - broker
+    labels:
+      tsdproxy.enable: "true"
   broker:
     image: redis:7
     restart: unless-stopped

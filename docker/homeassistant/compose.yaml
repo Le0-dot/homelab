@@ -9,5 +9,8 @@ services:
       - /run/dbus:/run/dbus:ro
     network_mode: host
     privileged: true
+    labels:
+      tsdproxy.enable: "true"
+      tsdproxy.container_port: 8123
 volumes:
   config:
