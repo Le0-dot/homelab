@@ -54,6 +54,7 @@
         - community.docker.docker_compose_v2:
             project_name: komodo
             project_src: "{{ komodo_core_dir.path }}"
+            pull: always
 
     - name: Deploy komodo periphery
       block:
@@ -73,6 +74,7 @@
         - community.docker.docker_compose_v2:
             project_name: komodo-periphery
             project_src: "{{ komodo_periphery_dir.path }}"
+            pull: always
 
     - name: Create toml config for komodo
       block:
@@ -91,6 +93,7 @@
 
               [[stack]]
               name = "komodo"
+              tags = ["komodo"]
               [stack.config]
               server = "server"
               run_directory = "docker/komodo"
@@ -102,6 +105,7 @@
 
               [[stack]]
               name = "komodo-periphery"
+              tags = ["komodo"]
               [stack.config]
               server = "server"
               run_directory = "docker/komodo-periphery"
