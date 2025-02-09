@@ -3,6 +3,9 @@ services:
     image: ghcr.io/linkwarden/linkwarden:latest
     container_name: linkwarden
     restart: unless-stopped
+    networks:
+      - default
+      - ollama_network
     ports:
       - 3030:3000
     volumes:
@@ -35,3 +38,7 @@ services:
 volumes:
   data:
   db:
+networks:
+  default:
+  ollama_network:
+    external: true

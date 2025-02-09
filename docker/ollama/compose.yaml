@@ -4,9 +4,14 @@ services:
     image: ollama/ollama:latest
     container_name: ollama
     restart: unless-stopped
+    networks:
+      - ollama
     ports:
       - 11434:11434
     volumes:
       - data:/root/.ollama
 volumes:
   data:
+networks:
+  ollama:
+    name: ollama_network
