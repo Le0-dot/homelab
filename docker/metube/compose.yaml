@@ -11,3 +11,5 @@ services:
       - DELETE_FILE_ON_TRASHCAN=true
       - OUTPUT_TEMPLATE=%(channel)s/%(upload_date)s - %(title)s/%(channel)s - %(upload_date)s - %(title)s [%(id)s].%(ext)s
       - YTDL_OPTIONS={"writeinfojson":true,"writethumbnail":true,"writesubtitles":true,"subtitleslangs":["en","-live_chat"],"updatetime":false,"postprocessors":[{"key":"FFmpegEmbedSubtitle","already_have_subtitle":false},{"key":"FFmpegMetadata","add_chapters":true}]}
+    labels:
+      tsdproxy.enable: "true"
