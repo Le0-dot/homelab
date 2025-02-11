@@ -12,6 +12,7 @@ services:
       - 3000:3000/tcp
     labels:
       tsdproxy.enable: "true"
+      tsdproxy.container_port: 3000
 volumes:
   data:
   config:
