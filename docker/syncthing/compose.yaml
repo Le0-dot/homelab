@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - ${SYNCTHING_SYNC_DIR:?}:/data
-      - config:/var/syncthing/config
+      - config:/config
     environment:
       - PUID=1000
       - PGID=1000
