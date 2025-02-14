@@ -1,6 +1,6 @@
 services:
   prowlarr:
-    image: linuxserver/prowlarr:latest
+    image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     restart: unless-stopped
     networks:
