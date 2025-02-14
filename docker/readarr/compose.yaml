@@ -1,6 +1,6 @@
 services:
   readarr:
-    image: ghcr.io/hotio/readarr
+    image: lscr.io/linuxserver/readarr:nightly
     container_name: readarr
     restart: unless-stopped
     networks:
