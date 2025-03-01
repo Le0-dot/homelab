@@ -16,6 +16,7 @@ services:
       tsdproxy.enable: "true"
   broker:
     image: redis:7
+    container_name: paperless-broker
     restart: unless-stopped
     volumes:
       - redis:/data

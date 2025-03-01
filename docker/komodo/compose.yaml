@@ -1,16 +1,4 @@
 services:
-  mongo:
-    image: mongo
-    labels:
-      komodo.skip:
-    command: --quiet --wiredTigerCacheSizeGB 0.25
-    restart: unless-stopped
-    volumes:
-      - mongo-data:/data/db
-      - mongo-config:/data/configdb
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME:?}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:?}
   core:
     image: ghcr.io/mbecker20/komodo:latest
     container_name: komodo-core
@@ -39,21 +27,22 @@ services:
       - KOMODO_LOCAL_AUTH=true
       - KOMODO_DISABLE_USER_REGISTRATION=false
       - KOMODO_ENABLE_NEW_USERS=false
-
-      - KOMODO_OIDC_ENABLED=false
-      ## Must reachable from Komodo Core container
-      # - KOMODO_OIDC_PROVIDER=https://oidc.provider.internal/application/o/komodo
-      ## Change the host to one reachable be reachable by users (optional if it is the same as above).
-      ## DO NOT include the `path` part of the URL.
-      # - KOMODO_OIDC_REDIRECT_HOST=https://oidc.provider.external
-      ## Your client credentials
-      # - KOMODO_OIDC_CLIENT_ID=
-      # - KOMODO_OIDC_CLIENT_SECRET=
-      ## Make usernames the full email.
-      # - KOMODO_OIDC_USE_FULL_EMAIL=true
     volumes:
       - repo-cache:/repo-cache
       - ${KOMODO_SYNC_DIR:?}:/syncs
+  mongo:
+    image: mongo
+    container_name: komodo-mongo
+    labels:
+      komodo.skip:
+    command: --quiet --wiredTigerCacheSizeGB 0.25
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME:?}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:?}
 volumes:
   mongo-data:
   mongo-config:
