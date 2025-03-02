@@ -11,6 +11,7 @@ services:
     volumes:
       - ${ALLOY_CONFIG:?}:/etc/alloy/config.alloy
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log/journal:/var/log/journal:ro
 networks:
   monitoring:
     external: true
