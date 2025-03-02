@@ -1,0 +1,17 @@
+services:
+  prometheus:
+      image: prom/prometheus
+      container_name: prometheus
+      restart: unless-stopped
+      ports:
+        - 9099:9090
+      networks:
+        - monitoring
+      volumes:
+        - ${PROMETHEUS_CONFIG:?}:/etc/prometheus/prometheus.yml
+        - data:/prometheus
+volumes:
+  data:
+networks:
+  monitoring:
+    external: true
