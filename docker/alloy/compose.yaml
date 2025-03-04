@@ -1,7 +1,7 @@
 services:
   alloy:
     image: grafana/alloy:latest
-    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy
     container_name: alloy
     restart: unless-stopped
     privileged: true
@@ -10,7 +10,7 @@ services:
     ports:
       - 12345:12345
     volumes:
-      - ${ALLOY_CONFIG:?}:/etc/alloy/config.alloy
+      - ${ALLOY_CONFIG_DIR:?}:/etc/alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/log/journal:/var/log/journal:ro
       - /:/host:ro
