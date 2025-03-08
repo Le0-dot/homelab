@@ -1,0 +1,10 @@
+services:
+  speedtest_exporter:
+    image: ghcr.io/danopstech/speedtest_exporter:latest
+    container_name: speedtest_exporter
+    restart: unless-stopped
+    networks:
+      - monitoring
+networks:
+  monitoring:
+    external: true
