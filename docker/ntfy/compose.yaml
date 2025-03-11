@@ -8,6 +8,8 @@ services:
     volumes:
       - cache:/var/cache/ntfy
       - auth:/var/lib/ntfy
+    networks:
+      - ntfy
     ports:
       - 8090:80
     environment:
@@ -22,3 +24,6 @@ services:
 volumes:
   cache:
   auth:
+networks:
+  ntfy:
+    name: ntfy
