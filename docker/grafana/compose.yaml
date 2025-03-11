@@ -7,6 +7,8 @@ services:
         - monitoring
       ports:
         - 3333:3000
+      environment:
+        - GF_ROOT_URL=${GRAFANA_URL:?}
       volumes:
         - data:/var/lib/grafana
       labels:
