@@ -17,7 +17,7 @@ services:
     networks:
       - monitoring
       - ntfy
-    command: -ntfy-url=http://ntfy
+    command: -ntfy-url=http://ntfy/
 volumes:
   data:
 networks:
