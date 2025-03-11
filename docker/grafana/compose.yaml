@@ -11,8 +11,18 @@ services:
         - data:/var/lib/grafana
       labels:
         tsdproxy.enable: "true"
+  grafana-ntfy:
+    image: academo/grafana-ntfy:latest
+    container_name: grafana-ntfy
+    networks:
+      - monitoring
+      - ntfy
+    command: -ntfy-url=http://ntfy
 volumes:
   data:
 networks:
   monitoring:
     name: monitoring
+  ntfy:
+    name: ntfy
+    external: true
