@@ -6,6 +6,7 @@ services:
     volumes:
       - config:/config
       - ${KOMGA_DATA_DIR:?}:/data
+      - ${KOMGA_IMPORT_DIR:?}:/import
       - /etc/timezone:/etc/timezone:ro
     ports:
       - 25600:25600
