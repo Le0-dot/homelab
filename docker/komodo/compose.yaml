@@ -1,6 +1,6 @@
 services:
   core:
-    image: ghcr.io/mbecker20/komodo:latest
+    image: ghcr.io/moghtech/komodo:latest
     container_name: komodo-core
     restart: unless-stopped
     labels:
