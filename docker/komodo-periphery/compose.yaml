@@ -1,6 +1,6 @@
 services:
   komodo-periphery:
-    image: ghcr.io/mbecker20/periphery:latest
+    image: ghcr.io/moghtech/komodo-periphery:latest
     container_name: komodo-periphery
     restart: unless-stopped
     networks:
