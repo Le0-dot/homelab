@@ -1,0 +1,10 @@
+services:
+  pytsproxy:
+    image: ghcr.io/le0-dot/pytsproxy:latest
+    container_name: pytsproxy
+    restart: unless-stopped
+    networks:
+      - monitoring
+networks:
+  monitoring:
+    external: true
