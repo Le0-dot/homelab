@@ -12,6 +12,8 @@ services:
       - PGID=1000
     devices:
       - /dev/dri:/dev/dri
+    networks:
+      - jellyfin
     ports:
       - 8096:8096
     labels:
@@ -19,3 +21,6 @@ services:
 volumes:
   config:
   cache:
+networks:
+  jellyfin:
+    name: jellyfin
