@@ -1,0 +1,9 @@
+services:
+  omni-tools:
+    image: docker.io/iib0011/omni-tools:latest
+    container_name: omni-tools
+    restart: unless-stopped
+    ports:
+      - 8282:80
+    labels:
+      tsdproxy.enable: "true"
