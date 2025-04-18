@@ -10,6 +10,7 @@ services:
       - media:/usr/src/paperless/media
     environment:
       - PAPERLESS_REDIS=redis://broker:6379
+      - PAPERLESS_URL=${PAPERLESS_URL:?}
     depends_on:
       - broker
     labels:
