@@ -16,6 +16,7 @@ services:
   grafana-ntfy:
     image: academo/grafana-ntfy:latest
     container_name: grafana-ntfy
+    restart: unless-stopped
     networks:
       - monitoring
       - ntfy
