@@ -1,0 +1,15 @@
+services:
+  dufs:
+    image: docker.io/sigoden/dufs:latest
+    container_name: dufs
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    volumes:
+      - ${DUFS_SERVE_PATH:?}:/data
+    environment:
+      - DUFS_SERVE_PATH=/data
+      - DUFS_AUTH=${DUFS_AUTH}
+      - DUFS_ALLOW_ALL=true
+    labels:
+      tsdproxy.enable: "true"
