@@ -1,0 +1,24 @@
+services:
+  backupd:
+    image: ghcr.io/le0-dot/backupd:latest
+    container_name: backupd${BACKUPD_INSTANCE:+-${BACKUPD_INSTANCE}}
+    restart: unless-stopped
+    networks:
+      - monitoring
+    ports:
+      - 127.0.0.1:9988:9988
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - BACKUPD_RUNNER_IMAGE=docker.io/instrumentisto/restic:latest
+      - RESTIC_REPOSITORY=${RESTIC_REPOSITORY:?}
+      - RESTIC_PASSWORD=${RESTIC_PASSWORD:?}
+      - RESTIC_KEEP_HOURLY=12
+      - RESTIC_KEEP_DAILY=7
+      - RESTIC_KEEP_WEEKLY=4
+      - RESTIC_KEEP_MONTHLY=6
+    env_file:
+      .env # For rclone, aws, b2, rest server, etc
+networks:
+  monitoring:
+    external: true
