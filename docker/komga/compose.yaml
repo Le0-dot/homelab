@@ -10,7 +10,6 @@ services:
       - /etc/timezone:/etc/timezone:ro
     ports:
       - 25600:25600
-    user: 1000:1000
     labels:
       tsdproxy.enable: "true"
 volumes:
