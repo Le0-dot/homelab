@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     networks:
       - komodo_periphery
+    ports:
+      - 8120:8120
     labels:
       komodo.skip:
     volumes:
