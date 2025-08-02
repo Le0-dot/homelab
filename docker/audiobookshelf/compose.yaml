@@ -11,6 +11,7 @@ services:
       - 13378:80
     labels:
       tsdproxy.enable: "true"
+      tsdproxy.enable: "${TAILSCALE_FUNNEL:-false}"
 volumes:
   config:
   metadata:
