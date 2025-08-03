@@ -5,6 +5,9 @@ services:
     restart: unless-stopped
     networks:
       - torrents
+    environment:
+      - PUID=0
+      - PGID=0
     volumes:
       - config:/config
       - ${TORRENTS_DOWNLOAD_DIR:?}:/downloads
