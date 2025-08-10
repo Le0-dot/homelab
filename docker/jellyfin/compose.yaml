@@ -14,6 +14,7 @@ services:
       - /dev/dri:/dev/dri
     networks:
       - jellyfin
+      - ldap
     ports:
       - 8096:8096
     labels:
@@ -24,3 +25,5 @@ volumes:
 networks:
   jellyfin:
     name: jellyfin
+  ldap:
+    external: true
