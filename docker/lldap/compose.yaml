@@ -1,0 +1,21 @@
+services:
+  lldap:
+    image: docker.io/lldap/lldap:stable
+    container_name: lldap
+    ports:
+      - 17170:17170
+    networks:
+      - ldap
+    volumes:
+      - data:/data
+    environment:
+      - LLDAP_JWT_SECRET=${LLDAP_JWT_SECRET:?}
+      - LLDAP_KEY_SEED=${LLDAP_KEY_SEED:?}
+      - LLDAP_LDAP_BASE_DN=${LLDAP_LDAP_BASE_DN:?}
+      - LLDAP_LDAP_USER_PASS=${LLDAP_LDAP_USER_PASS:?}
+    labels:
+      tsdproxy.enable: "true"
+volumes:
+  data:
+networks:
+  ldap:
