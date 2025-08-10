@@ -19,3 +19,4 @@ volumes:
   data:
 networks:
   ldap:
+    name: ldap
