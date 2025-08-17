@@ -3,6 +3,8 @@ services:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
     container_name: paperless
     restart: unless-stopped
+    depends_on: 
+      - broker
     ports:
       - 8010:8000
     volumes:
@@ -11,8 +13,6 @@ services:
     environment:
       - PAPERLESS_REDIS=redis://broker:6379
       - PAPERLESS_URL=${PAPERLESS_URL:?}
-    depends_on:
-      - broker
     labels:
       tsdproxy.enable: "true"
   broker:
