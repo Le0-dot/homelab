@@ -6,10 +6,9 @@ services:
     command:
       - serve
     volumes:
-      - cache:/var/cache/ntfy
-      - auth:/var/lib/ntfy
+      - data:/var/lib/ntfy
     networks:
-      - ntfy
+      - notification
     ports:
       - 8090:80
     environment:
@@ -22,8 +21,7 @@ services:
     labels:
       tsdproxy.enable: "true"
 volumes:
-  cache:
-  auth:
+  data:
 networks:
-  ntfy:
-    name: ntfy
+  notification:
+    name: notification
