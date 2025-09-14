@@ -20,5 +20,6 @@ services:
       .env # For rclone, aws, b2, rest server, etc
 networks:
   backup:
+    name: backup
   monitoring:
     external: true
