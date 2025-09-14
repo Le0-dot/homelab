@@ -4,9 +4,8 @@ services:
     container_name: backupd${BACKUPD_INSTANCE:+-${BACKUPD_INSTANCE}}
     restart: unless-stopped
     networks:
+      - backup
       - monitoring
-    ports:
-      - 127.0.0.1:9988:9988
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -20,5 +19,6 @@ services:
     env_file:
       .env # For rclone, aws, b2, rest server, etc
 networks:
+  backup:
   monitoring:
     external: true
