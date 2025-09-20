@@ -19,6 +19,6 @@ volumes:
   config:
 networks:
   torrents:
-    name: torrents
+    external: true
   notification:
-    name: notification
+    external: true
