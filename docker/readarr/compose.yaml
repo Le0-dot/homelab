@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     networks:
       - torrents
+      - notification
     environment:
       - PUID=1000
       - PGID=1000
@@ -20,4 +21,6 @@ volumes:
   config:
 networks:
   torrents:
-    external: true
+    name: torrents
+  notification:
+    name: notification
