@@ -9,9 +9,9 @@ services:
       - metadata:/metadata
     ports:
       - 13378:80
-    labels:
-      tsdproxy.enable: "true"
-      tsdproxy.funnel: "${TAILSCALE_FUNNEL:-false}"
+    # labels:
+    #   tsdproxy.enable: "true"
+    #   tsdproxy.funnel: "${TAILSCALE_FUNNEL:-false}"
 volumes:
   config:
   metadata:
